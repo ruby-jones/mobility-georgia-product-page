@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Med-Mizer Retractabed | Mobility Georgia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #C0392B;
+    --red-light: #FAEAE8;
+    --red-dark: #922b21;
+    --navy: #1a2740;
+    --navy-mid: #243350;
+    --sky: #2E86C1;
+    --sky-light: #EBF5FB;
+    --sky-mid: #AED6F1;
+    --amber: #D4AC0D;
+    --amber-light: #FEF9E7;
+    --green: #1e8449;
+    --green-light: #EAFAF1;
+    --gray-50: #F9F8F6;
+    --gray-100: #F1EFE9;
+    --gray-200: #E3DFDA;
+    --gray-400: #9C9589;
+    --gray-600: #5E584F;
+    --gray-800: #2C2820;
+    --white: #FFFFFF;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05);
+    --shadow-lg: 0 12px 32px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body { font-family: var(--font-body); background: var(--gray-50); color: var(--gray-800); line-height: 1.6; }
+
+  /* ─── NAV ─── */
+  .nav { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 1180px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; height: 68px; gap: 2rem; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-mark { width: 38px; height: 38px; background: var(--red); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
+  .nav-logo-mark svg { width: 22px; height: 22px; fill: white; }
+  .nav-brand { font-family: var(--font-display); font-size: 17px; color: var(--navy); line-height: 1.15; }
+  .nav-brand span { display: block; font-size: 10px; font-family: var(--font-body); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-400); }
+  .nav-links { display: flex; gap: 0; margin-left: 1rem; }
+  .nav-links a { font-size: 13px; font-weight: 500; color: var(--gray-600); text-decoration: none; padding: 0 14px; height: 68px; display: flex; align-items: center; border-bottom: 2px solid transparent; transition: color 0.15s, border-color 0.15s; }
+  .nav-links a:hover { color: var(--red); border-bottom-color: var(--red); }
+  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+  .nav-phone { font-size: 13px; font-weight: 500; color: var(--navy); display: flex; align-items: center; gap: 6px; text-decoration: none; }
+  .nav-phone svg { width: 14px; height: 14px; }
+  .nav-btn { background: var(--red); color: white; font-size: 13px; font-weight: 500; padding: 8px 18px; border-radius: var(--radius-sm); text-decoration: none; transition: background 0.15s; }
+  .nav-btn:hover { background: var(--red-dark); }
+  .nav-cart { position: relative; padding: 6px; display: flex; align-items: center; color: var(--gray-600); cursor: pointer; }
+  .nav-cart svg { width: 22px; height: 22px; }
+  .nav-cart-count { position: absolute; top: 0; right: 0; background: var(--red); color: white; font-size: 10px; font-weight: 600; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+  /* ─── BREADCRUMB ─── */
+  .breadcrumb { max-width: 1180px; margin: 0 auto; padding: 14px 2rem; display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--gray-400); }
+  .breadcrumb a { color: var(--gray-400); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--sky); }
+  .breadcrumb span { font-size: 11px; }
+
+  /* ─── PRODUCT LAYOUT ─── */
+  .product-layout { max-width: 1180px; margin: 0 auto; padding: 0 2rem 4rem; display: grid; grid-template-columns: 1fr 480px; gap: 3rem; align-items: start; }
+
+  /* ─── GALLERY ─── */
+  .gallery { position: sticky; top: 88px; }
+  .gallery-main { background: var(--white); border-radius: var(--radius-xl); border: 1px solid var(--gray-200); overflow: hidden; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+  .gallery-main img { width: 100%; height: 100%; object-fit: contain; padding: 2rem; transition: opacity 0.25s; }
+  .gallery-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .gallery-thumb { background: var(--white); border-radius: var(--radius-md); border: 2px solid transparent; overflow: hidden; aspect-ratio: 1; cursor: pointer; transition: border-color 0.15s; display: flex; align-items: center; justify-content: center; }
+  .gallery-thumb.active { border-color: var(--red); }
+  .gallery-thumb img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
+  .gallery-thumb:hover { border-color: var(--gray-400); }
+
+  /* ─── PRODUCT INFO PANEL ─── */
+  .product-panel { }
+  .brand-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sky); background: var(--sky-light); padding: 5px 12px; border-radius: 100px; margin-bottom: 14px; }
+  .product-title { font-family: var(--font-display); font-size: 30px; line-height: 1.2; color: var(--navy); margin-bottom: 8px; }
+  .product-sku { font-size: 12px; color: var(--gray-400); margin-bottom: 16px; }
+  .rating-row { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+  .stars { display: flex; gap: 2px; }
+  .stars svg { width: 14px; height: 14px; fill: var(--amber); }
+  .rating-count { font-size: 13px; color: var(--sky); text-decoration: underline; cursor: pointer; }
+  .trust-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .trust-badge { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; color: var(--gray-600); background: var(--gray-100); padding: 5px 11px; border-radius: 100px; }
+  .trust-badge svg { width: 13px; height: 13px; }
+
+  /* ─── VARIANTS ─── */
+  .variants-section { margin-bottom: 24px; }
+  .variant-group { margin-bottom: 16px; }
+  .variant-label { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .variant-label strong { color: var(--gray-800); font-weight: 500; letter-spacing: 0; text-transform: none; font-size: 13px; }
+  .variant-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip { padding: 8px 16px; border-radius: var(--radius-sm); border: 1.5px solid var(--gray-200); background: var(--white); font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; color: var(--gray-600); }
+  .chip:hover { border-color: var(--gray-400); color: var(--gray-800); }
+  .chip.active { border-color: var(--navy); background: var(--navy); color: var(--white); }
+  .chip.chip-add { color: var(--gray-400); font-size: 12px; }
+  .chip.chip-add.active { border-color: var(--sky); background: var(--sky-light); color: var(--sky); }
+  .chip.chip-recommended { position: relative; }
+  .chip.chip-recommended::after { content: 'Recommended'; position: absolute; top: -8px; left: 50%; transform: translateX(-50%); background: var(--green); color: white; font-size: 9px; font-weight: 600; letter-spacing: 0.05em; padding: 2px 6px; border-radius: 100px; white-space: nowrap; }
+  select.variant-select { width: 100%; padding: 10px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 13px; color: var(--gray-800); background: var(--white); appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239C9589' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; cursor: pointer; transition: border-color 0.15s; }
+  select.variant-select:focus { outline: none; border-color: var(--sky); }
+
+  /* ─── PURCHASE MODE ─── */
+  .purchase-mode { margin-bottom: 20px; }
+  .mode-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1.5px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; background: var(--gray-100); padding: 4px; gap: 4px; }
+  .mode-btn { padding: 12px 16px; border-radius: var(--radius-sm); border: none; cursor: pointer; transition: all 0.2s; text-align: center; background: transparent; }
+  .mode-btn .mode-name { font-size: 14px; font-weight: 600; color: var(--gray-400); display: block; }
+  .mode-btn .mode-price { font-size: 12px; color: var(--gray-400); display: block; margin-top: 2px; }
+  .mode-btn.active { background: var(--white); box-shadow: var(--shadow-sm); }
+  .mode-btn.active .mode-name { color: var(--navy); }
+  .mode-btn.active .mode-price { color: var(--sky); }
+  .mode-btn.active.rto-btn .mode-name { color: var(--red); }
+  .mode-btn.active.rto-btn .mode-price { color: var(--red); }
+
+  /* ─── PRICE HERO ─── */
+  .price-hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 16px; color: white; }
+  .price-hero-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+  .price-hero-amount { font-family: var(--font-display); font-size: 44px; line-height: 1; color: white; }
+  .price-hero-amount sup { font-family: var(--font-body); font-size: 22px; vertical-align: top; margin-top: 6px; }
+  .price-hero-amount .period { font-family: var(--font-body); font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.6); margin-left: 4px; }
+  .price-hero-sub { font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 6px; line-height: 1.5; }
+  .price-hero-sub strong { color: rgba(255,255,255,0.9); }
+  .price-hero-breakdown { margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.12); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .price-hero-breakdown-item { }
+  .phi-label { font-size: 10px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.07em; display: block; margin-bottom: 3px; }
+  .phi-val { font-size: 15px; font-weight: 600; color: white; }
+
+  /* ─── COST SUMMARY ─── */
+  .cost-summary { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 16px; }
+  .cs-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 16px; font-size: 13px; border-bottom: 1px solid var(--gray-100); }
+  .cs-row:last-child { border-bottom: none; }
+  .cs-row .cs-label { color: var(--gray-400); }
+  .cs-row .cs-val { color: var(--gray-800); font-weight: 500; }
+  .cs-row.cs-total { background: var(--gray-50); padding: 14px 16px; }
+  .cs-row.cs-total .cs-label { font-weight: 600; font-size: 14px; color: var(--navy); }
+  .cs-row.cs-total .cs-val { font-size: 18px; font-weight: 700; color: var(--navy); }
+  .cs-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; }
+  .cs-badge-blue { background: var(--sky-light); color: var(--sky); }
+  .cs-badge-amber { background: var(--amber-light); color: #9A7D0A; }
+
+  /* ─── MATTRESS ─── */
+  .mattress-section { margin-bottom: 16px; }
+  .section-heading { font-size: 13px; font-weight: 600; color: var(--gray-800); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .section-heading .step-dot { width: 24px; height: 24px; background: var(--navy); color: white; font-size: 11px; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .mattress-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+  .mattress-card { border: 1.5px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 14px; cursor: pointer; transition: all 0.15s; background: var(--white); display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .mattress-card:hover { border-color: var(--gray-400); }
+  .mattress-card.selected { border-color: var(--sky); background: var(--sky-light); }
+  .mattress-card.selected .mc-name { color: var(--sky); }
+  .mc-info { flex: 1; min-width: 0; }
+  .mc-name { font-size: 13px; font-weight: 600; color: var(--gray-800); margin-bottom: 2px; }
+  .mc-desc { font-size: 12px; color: var(--gray-400); }
+  .mc-price { font-size: 14px; font-weight: 700; color: var(--gray-800); white-space: nowrap; }
+  .mc-radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--gray-200); flex-shrink: 0; position: relative; transition: border-color 0.15s; }
+  .mattress-card.selected .mc-radio { border-color: var(--sky); }
+  .mattress-card.selected .mc-radio::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; background: var(--sky); border-radius: 50%; }
+  .mattress-notice { background: var(--amber-light); border: 1px solid #F9E79F; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 12px; color: #7D6608; line-height: 1.5; margin-top: 8px; display: flex; gap: 8px; }
+  .mattress-notice svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; fill: #9A7D0A; }
+
+  /* ─── DELIVERY ─── */
+  .delivery-section { margin-bottom: 20px; }
+  .delivery-input-row { display: flex; gap: 8px; }
+  .delivery-input-row input { flex: 1; padding: 11px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 14px; color: var(--gray-800); transition: border-color 0.15s; }
+  .delivery-input-row input:focus { outline: none; border-color: var(--sky); }
+  .delivery-input-row input::placeholder { color: var(--gray-400); }
+  .delivery-btn { padding: 11px 18px; background: var(--navy); color: white; border: none; border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.15s; white-space: nowrap; }
+  .delivery-btn:hover { background: var(--navy-mid); }
+  .delivery-sub { font-size: 12px; color: var(--gray-400); margin-top: 6px; }
+
+  /* ─── CTAs ─── */
+  .cta-stack { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .cta-primary { background: var(--red); color: white; border: none; border-radius: var(--radius-md); padding: 16px 24px; font-family: var(--font-body); font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.15s, transform 0.1s; letter-spacing: 0.02em; }
+  .cta-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+  .cta-primary:active { transform: translateY(0); }
+  .cta-secondary { background: transparent; color: var(--navy); border: 1.5px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 24px; font-family: var(--font-body); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; }
+  .cta-secondary:hover { border-color: var(--navy); background: var(--gray-50); }
+
+  /* ─── GUARANTEE ROW ─── */
+  .guarantee-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 24px; }
+  .guarantee-item { display: flex; align-items: flex-start; gap: 8px; padding: 10px; background: var(--gray-50); border-radius: var(--radius-sm); border: 1px solid var(--gray-100); }
+  .guarantee-item svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+  .gi-text { font-size: 12px; color: var(--gray-600); line-height: 1.4; }
+  .gi-text strong { display: block; font-size: 12px; color: var(--gray-800); margin-bottom: 1px; }
+
+  /* ─── TABS ─── */
+  .tabs { border-top: 1px solid var(--gray-200); padding-top: 24px; }
+  .tab-bar { display: flex; gap: 0; border-bottom: 1px solid var(--gray-200); margin-bottom: 20px; }
+  .tab { padding: 10px 18px; font-size: 13px; font-weight: 500; color: var(--gray-400); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s; }
+  .tab.active { color: var(--navy); border-bottom-color: var(--navy); }
+  .tab-content { font-size: 14px; line-height: 1.7; color: var(--gray-600); display: none; }
+  .tab-content.active { display: block; }
+  .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--gray-200); }
+  .spec-item { padding: 12px 16px; border-bottom: 1px solid var(--gray-100); }
+  .spec-item:nth-child(odd) { background: var(--gray-50); }
+  .spec-item:last-child, .spec-item:nth-last-child(2) { border-bottom: none; }
+  .spec-key { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray-400); margin-bottom: 3px; }
+  .spec-val { font-size: 13px; font-weight: 600; color: var(--gray-800); }
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .feature-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--gray-600); }
+  .feature-list li::before { content: ''; width: 6px; height: 6px; background: var(--red); border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+
+  /* ─── YOU MAY ALSO LIKE ─── */
+  .related-section { max-width: 1180px; margin: 0 auto; padding: 0 2rem 4rem; }
+  .related-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
+  .related-header h2 { font-family: var(--font-display); font-size: 26px; color: var(--navy); }
+  .related-header a { font-size: 13px; color: var(--sky); text-decoration: none; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .related-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; text-decoration: none; display: flex; flex-direction: column; }
+  .related-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .related-card-img { aspect-ratio: 4/3; background: var(--gray-50); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .related-card-img img { width: 90%; height: 90%; object-fit: contain; padding: 1rem; }
+  .related-card-body { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; }
+  .related-card-brand { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 4px; }
+  .related-card-name { font-size: 14px; font-weight: 500; color: var(--navy); line-height: 1.35; margin-bottom: 8px; flex: 1; }
+  .related-card-price { font-size: 16px; font-weight: 700; color: var(--navy); }
+  .related-card-rto { font-size: 12px; color: var(--sky); margin-top: 2px; }
+
+  /* ─── FOOTER ─── */
+  .footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 3rem 0 1.5rem; }
+  .footer-inner { max-width: 1180px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 2rem; }
+  .footer-brand { }
+  .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .footer-logo-mark { width: 36px; height: 36px; background: var(--red); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
+  .footer-logo-text { font-family: var(--font-display); font-size: 16px; color: white; }
+  .footer-desc { font-size: 13px; line-height: 1.6; }
+  .footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+  .footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; margin-bottom: 8px; transition: color 0.15s; }
+  .footer-col a:hover { color: white; }
+  .footer-bottom { max-width: 1180px; margin: 0 auto; padding: 1.5rem 2rem 0; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .product-panel { animation: fadeUp 0.4s ease both; }
+  .gallery { animation: fadeUp 0.4s ease 0.1s both; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .product-layout { grid-template-columns: 1fr; }
+    .gallery { position: static; }
+    .nav-links { display: none; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .related-grid { grid-template-columns: 1fr 1fr; }
+    .price-hero-breakdown { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 540px) {
+    .product-layout { padding: 0 1rem 3rem; }
+    .related-section { padding: 0 1rem 3rem; }
+    .product-title { font-size: 24px; }
+    .price-hero-amount { font-size: 36px; }
+    .related-grid { grid-template-columns: 1fr; }
+    .guarantee-row { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="nav-brand">Mobility Georgia<span>Metro Atlanta's Trusted Leader</span></div>
+    </a>
+    <nav class="nav-links">
+      <a href="#">Rentals</a>
+      <a href="#">Scooters</a>
+      <a href="#">Power Chairs</a>
+      <a href="#" style="color:var(--red);border-bottom:2px solid var(--red)">Medical Beds</a>
+      <a href="#">Lift Chairs</a>
+      <a href="#">About Us</a>
+    </nav>
+    <div class="nav-right">
+      <a class="nav-phone" href="tel:4703576130">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.1 1.22 2 2 0 012.1.02h3a2 2 0 012 1.72c.127.96.36 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.34 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        (470) 357-6130
+      </a>
+      <a class="nav-btn" href="#">Contact Us</a>
+      <div class="nav-cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <div class="nav-cart-count">0</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">Home</a><span>›</span>
+  <a href="#">Medical Beds</a><span>›</span>
+  <span style="color:var(--gray-600)">Med-Mizer Retractabed</span>
+</div>
+
+<!-- PRODUCT -->
+<div class="product-layout">
+
+  <!-- LEFT: GALLERY -->
+  <div class="gallery">
+    <div class="gallery-main">
+      <img id="main-img" src="https://mobilitygeorgia.com/cdn/shop/files/CopyofACO_clipped_rev_1.png?v=1762844856&width=800" alt="Med-Mizer Retractabed" />
+    </div>
+    <div class="gallery-thumbs">
+      <div class="gallery-thumb active" onclick="switchImg(this, 'https://mobilitygeorgia.com/cdn/shop/files/CopyofACO_clipped_rev_1.png?v=1762844856&width=400')">
+        <img src="https://mobilitygeorgia.com/cdn/shop/files/CopyofACO_clipped_rev_1.png?v=1762844856&width=200" alt="" />
+      </div>
+      <div class="gallery-thumb" onclick="switchImg(this, 'https://mobilitygeorgia.com/cdn/shop/files/CopyofFloor6_clipped_rev_1.png?v=1768883246&width=400')">
+        <img src="https://mobilitygeorgia.com/cdn/shop/files/CopyofFloor6_clipped_rev_1.png?v=1768883246&width=200" alt="" />
+      </div>
+      <div class="gallery-thumb" onclick="switchImg(this, 'https://mobilitygeorgia.com/cdn/shop/files/RetractabedwithFlexabedInnerspringMattress.jpg?v=1762844856&width=400')">
+        <img src="https://mobilitygeorgia.com/cdn/shop/files/RetractabedwithFlexabedInnerspringMattress.jpg?v=1762844856&width=200" alt="" />
+      </div>
+      <div class="gallery-thumb" onclick="switchImg(this, 'https://mobilitygeorgia.com/cdn/shop/files/retractabedwithflexabedmemorygel.jpg?v=1762844856&width=400')">
+        <img src="https://mobilitygeorgia.com/cdn/shop/files/retractabedwithflexabedmemorygel.jpg?v=1762844856&width=200" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: PRODUCT PANEL -->
+  <div class="product-panel">
+    <div class="brand-tag">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
+      Med-Mizer
+    </div>
+    <h1 class="product-title">Retractabed Hi-Low<br>Adjustable Bed</h1>
+    <p class="product-sku">SKU: Retract-V-OAK-80 · Expandable 35" / 39" / 42"</p>
+
+    <div class="rating-row">
+      <div class="stars">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <span class="rating-count">4.9 (48 reviews)</span>
+    </div>
+
+    <div class="trust-badges">
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        500 lb capacity
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        15-Year warranty
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Delivered &amp; installed
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        14" low fall-safe height
+      </div>
+    </div>
+
+    <!-- STEP 1: BED OPTIONS -->
+    <div class="variants-section">
+      <div class="variant-group">
+        <div class="variant-label">Panel color <strong id="color-label">English Oak</strong></div>
+        <div class="variant-chips">
+          <div class="chip active" onclick="selectChip(this,'color-label')">English Oak</div>
+          <div class="chip" onclick="selectChip(this,'color-label')">Light Oak</div>
+          <div class="chip" onclick="selectChip(this,'color-label')">Cherry Wood</div>
+        </div>
+      </div>
+      <div class="variant-group">
+        <div class="variant-label">Length <strong id="length-label">Standard 80"</strong></div>
+        <div class="variant-chips">
+          <div class="chip active" onclick="selectChip(this,'length-label',0)">Standard 80"</div>
+          <div class="chip chip-add" onclick="selectChip(this,'length-label',250)">Extended 84" <span style="font-size:11px;color:var(--sky)">+$250</span></div>
+        </div>
+      </div>
+      <div class="variant-group">
+        <div class="variant-label">Side rails <strong id="rails-label">None</strong></div>
+        <div class="variant-chips">
+          <div class="chip active" onclick="selectChip(this,'rails-label',0)">None</div>
+          <div class="chip chip-add chip-recommended" onclick="selectChip(this,'rails-label',366)">Med-Mizer Rails <span style="font-size:11px;color:var(--sky)">+$366</span></div>
+        </div>
+      </div>
+      <div class="variant-group">
+        <div class="variant-label">Optional add-ons</div>
+        <div class="variant-chips">
+          <select class="variant-select" onchange="handleAddon(this)">
+            <option value="0">No trapeze</option>
+            <option value="612">+ Trapeze assembly ($612)</option>
+          </select>
+        </div>
+      </div>
+      <div class="variant-group">
+        <div class="variant-label">Service plan</div>
+        <div class="variant-chips">
+          <select class="variant-select" onchange="handleService(this)">
+            <option value="0">No service plan</option>
+            <option value="150">6-Month coverage ($150) — required with purchase</option>
+            <option value="250">1-Year coverage ($250)</option>
+            <option value="400">2-Year coverage ($400)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- PURCHASE MODE TOGGLE -->
+    <div class="purchase-mode">
+      <div class="mode-toggle">
+        <button class="mode-btn" id="btn-purchase" onclick="setMode('purchase')">
+          <span class="mode-name">Purchase in full</span>
+          <span class="mode-price" id="purchase-label">$2,768 today</span>
+        </button>
+        <button class="mode-btn active rto-btn" id="btn-rto" onclick="setMode('rto')">
+          <span class="mode-name">Rent to own</span>
+          <span class="mode-price" id="rto-label">$530/mo · own in 6 months</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- RTO PANEL -->
+    <div id="rto-panel">
+      <div class="price-hero">
+        <div class="price-hero-label">Monthly payment · Rent to own</div>
+        <div class="price-hero-amount">
+          <sup>$</sup><span id="monthly-big">530</span><span class="period">/ month for 6 months</span>
+        </div>
+        <div class="price-hero-sub">Includes a <strong>15% convenience premium</strong> for paying over time. You own the bed after your 6th payment.</div>
+        <div class="price-hero-breakdown">
+          <div class="price-hero-breakdown-item">
+            <span class="phi-label">Bed price</span>
+            <span class="phi-val" id="phi-base">$2,768</span>
+          </div>
+          <div class="price-hero-breakdown-item">
+            <span class="phi-label">15% premium</span>
+            <span class="phi-val" id="phi-premium">$415</span>
+          </div>
+          <div class="price-hero-breakdown-item">
+            <span class="phi-label">Total for bed</span>
+            <span class="phi-val" id="phi-total">$3,183</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cost-summary">
+        <div class="cs-row"><span class="cs-label">Bed (6 payments of <span id="monthly-inline">$530</span>)</span><span class="cs-val" id="cs-bed-rto">$3,183</span></div>
+        <div class="cs-row" id="cs-mattress-row" style="display:none"><span class="cs-label">Mattress <span class="cs-badge cs-badge-amber">due today</span></span><span class="cs-val" id="cs-mattress-val">—</span></div>
+        <div class="cs-row cs-total"><span class="cs-label">Total you pay</span><span class="cs-val" id="cs-grand-rto">$3,183</span></div>
+      </div>
+    </div>
+
+    <!-- PURCHASE PANEL -->
+    <div id="purchase-panel" style="display:none">
+      <div class="cost-summary">
+        <div class="cs-row"><span class="cs-label">Bed price</span><span class="cs-val" id="cs-bed-purchase">$2,768</span></div>
+        <div class="cs-row" id="cs-purchase-mattress-row" style="display:none"><span class="cs-label">Mattress</span><span class="cs-val" id="cs-purchase-mattress-val">—</span></div>
+        <div class="cs-row cs-total"><span class="cs-label">Total due today</span><span class="cs-val" id="cs-grand-purchase">$2,768</span></div>
+      </div>
+    </div>
+
+    <!-- MATTRESS -->
+    <div class="mattress-section">
+      <div class="section-heading"><div class="step-dot">2</div> Choose a mattress</div>
+      <div class="mattress-grid">
+        <div class="mattress-card" id="m-none" onclick="selectMattress('none',0)">
+          <div class="mc-radio"></div>
+          <div class="mc-info">
+            <div class="mc-name">No mattress</div>
+            <div class="mc-desc">I already have a compatible mattress</div>
+          </div>
+          <div class="mc-price">+$0</div>
+        </div>
+        <div class="mattress-card selected" id="m-gel36" onclick="selectMattress('gel36',525)">
+          <div class="mc-radio"></div>
+          <div class="mc-info">
+            <div class="mc-name">Med-Mizer Gel Foam · 36"×80"×6"</div>
+            <div class="mc-desc">Pressure relieving · most popular choice</div>
+          </div>
+          <div class="mc-price">+$525</div>
+        </div>
+        <div class="mattress-card" id="m-gel42" onclick="selectMattress('gel42',750)">
+          <div class="mc-radio"></div>
+          <div class="mc-info">
+            <div class="mc-name">Med-Mizer Gel Foam · 42"×80"×6"</div>
+            <div class="mc-desc">Wider option for expandable frame</div>
+          </div>
+          <div class="mc-price">+$750</div>
+        </div>
+        <div class="mattress-card" id="m-inner" onclick="selectMattress('inner',850)">
+          <div class="mc-radio"></div>
+          <div class="mc-info">
+            <div class="mc-name">Flexabed Innerspring · 38"×80"×10"</div>
+            <div class="mc-desc">Traditional spring feel · medium firmness</div>
+          </div>
+          <div class="mc-price">+$850</div>
+        </div>
+        <div class="mattress-card" id="m-memgel" onclick="selectMattress('memgel',1050)">
+          <div class="mc-radio"></div>
+          <div class="mc-info">
+            <div class="mc-name">Flexabed Memory Gel · 38"×80"×10"</div>
+            <div class="mc-desc">Premium memory foam · maximum comfort</div>
+          </div>
+          <div class="mc-price">+$1,050</div>
+        </div>
+      </div>
+      <div class="mattress-notice" id="mattress-notice" style="display:none">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2z"/><path d="M12 9v4"/><circle cx="12" cy="17" r="0.5"/></svg>
+        Mattresses cannot be returned once opened for hygiene reasons. The mattress price is paid in full today, separately from your monthly payments.
+      </div>
+    </div>
+
+    <!-- DELIVERY -->
+    <div class="delivery-section">
+      <div class="section-heading"><div class="step-dot">3</div> Confirm delivery</div>
+      <div class="delivery-input-row">
+        <input type="text" placeholder="Enter your ZIP code" maxlength="10" id="zip-input" />
+        <button class="delivery-btn" onclick="checkZip()">Check area</button>
+      </div>
+      <p class="delivery-sub">Delivery &amp; setup included within 15 miles. $450 for longer distances. We serve a 100-mile radius around Atlanta.</p>
+      <div id="zip-result" style="display:none;margin-top:8px;font-size:13px;padding:10px 14px;border-radius:var(--radius-sm);"></div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="cta-stack">
+      <button class="cta-primary" onclick="handleCheckout()">Proceed to checkout →</button>
+      <button class="cta-secondary" onclick="handleDemo()">Book a free home demonstration</button>
+    </div>
+
+    <!-- GUARANTEES -->
+    <div class="guarantee-row">
+      <div class="guarantee-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div class="gi-text"><strong>15-Year warranty</strong>Full manufacturer coverage on all parts</div>
+      </div>
+      <div class="guarantee-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="2" width="16" height="16"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <div class="gi-text"><strong>Delivery within 3 days</strong>Assembled, installed &amp; tested at home</div>
+      </div>
+      <div class="guarantee-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" width="16" height="16"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <div class="gi-text"><strong>Home demonstration</strong>Try before you buy — fee credited to purchase</div>
+      </div>
+      <div class="guarantee-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <div class="gi-text"><strong>No pressure sales</strong>Return or convert to rent-to-own at delivery</div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <div class="tab-bar">
+        <div class="tab active" onclick="switchTab(this,'tab-desc')">Description</div>
+        <div class="tab" onclick="switchTab(this,'tab-specs')">Specifications</div>
+        <div class="tab" onclick="switchTab(this,'tab-faq')">FAQ</div>
+        <div class="tab" onclick="switchTab(this,'tab-returns')">Returns</div>
+      </div>
+      <div class="tab-content active" id="tab-desc">
+        <ul class="feature-list">
+          <li>Wall-hugger design retracts toward the head, pulling the resident closer to the bedside cabinet</li>
+          <li>Reduces room footprint — leaves more space for medical equipment</li>
+          <li>Low deck height of just 14" for excellent fall protection; adjusts up to 29" for caregiving</li>
+          <li>Expandable base accommodates 35", 39", and 42" mattress widths</li>
+          <li>500 lb weight capacity with 15-Year Limited Warranty</li>
+          <li>Thoughtful articulation keeps the user aligned with bedside tables as the bed adjusts</li>
+        </ul>
+      </div>
+      <div class="tab-content" id="tab-specs">
+        <div class="spec-grid">
+          <div class="spec-item"><div class="spec-key">Bed capacity</div><div class="spec-val">500 lbs</div></div>
+          <div class="spec-item"><div class="spec-key">Length options</div><div class="spec-val">80" or 84"</div></div>
+          <div class="spec-item"><div class="spec-key">Deck height range</div><div class="spec-val">14" – 29"</div></div>
+          <div class="spec-item"><div class="spec-key">Width options</div><div class="spec-val">35" / 39" / 42"</div></div>
+          <div class="spec-item"><div class="spec-key">Warranty</div><div class="spec-val">15-Year Limited</div></div>
+          <div class="spec-item"><div class="spec-key">Panel colors</div><div class="spec-val">English Oak, Light Oak, Cherry</div></div>
+          <div class="spec-item"><div class="spec-key">Delivery &amp; setup</div><div class="spec-val">Within 3 business days</div></div>
+          <div class="spec-item"><div class="spec-key">Rent-to-own term</div><div class="spec-val">6 months</div></div>
+        </div>
+      </div>
+      <div class="tab-content" id="tab-faq">
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div>
+            <p style="font-weight:600;font-size:13px;margin-bottom:4px;">How does Rent-to-Own work?</p>
+            <p>You pay a fixed monthly amount over 6 months. After your 6th payment, you own the bed outright. There is a 15% convenience premium included in the total — this is clearly shown before you check out.</p>
+          </div>
+          <div>
+            <p style="font-weight:600;font-size:13px;margin-bottom:4px;">Why is the mattress purchased separately?</p>
+            <p>Mattresses are a hygiene-sensitive item and cannot be returned or rented. They must be purchased in full at the time of delivery. This is the same policy regardless of whether you purchase or rent-to-own the bed.</p>
+          </div>
+          <div>
+            <p style="font-weight:600;font-size:13px;margin-bottom:4px;">Can I return the bed?</p>
+            <p>Yes — you may decline the item before our delivery team leaves at no restocking fee. Within 7 days after delivery, eligible items may be returned with a 15% restocking fee, or converted into a Rent-to-Own agreement.</p>
+          </div>
+          <div>
+            <p style="font-weight:600;font-size:13px;margin-bottom:4px;">What areas do you deliver to?</p>
+            <p>We serve Metro Atlanta and a 100-mile radius including Athens, LaGrange, Villa Rica, Gainesville, and Peachtree City. Delivery &amp; setup is free within 15 miles and $450 for longer distances.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tab-content" id="tab-returns">
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--gray-600);">
+          <p>You may decline the item <strong>before the delivery team leaves</strong> — no restocking fees, only the delivery fee applies.</p>
+          <p>After delivery: steel hospital bed frames qualify for a 100% refund (excluding delivery fees) within 7 days if in perfect condition.</p>
+          <p>Other items may be returned within 7 days with a <strong>15% restocking fee</strong>, or converted to a Rent-to-Own contract.</p>
+          <p style="color:var(--red-dark);font-weight:500;">Mattresses, once unwrapped or used, cannot be returned for hygiene reasons.</p>
+          <p>Contact us by phone or chat to request a Return Authorization. Refunds are processed within 5–10 business days after inspection.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RELATED -->
+<div class="related-section">
+  <div class="related-header">
+    <h2>You may also like</h2>
+    <a href="#">View all medical beds →</a>
+  </div>
+  <div class="related-grid">
+    <a class="related-card" href="#">
+      <div class="related-card-img"><img src="https://mobilitygeorgia.com/cdn/shop/files/Ultra_Dove_Seated_11-22_1.jpg?format=webp&v=1769032588&width=400" alt="Lift Chair" /></div>
+      <div class="related-card-body">
+        <div class="related-card-brand">Pride</div>
+        <div class="related-card-name">Vivalift Ultra Lift Chair — 3 Sizes</div>
+        <div class="related-card-price">From $1,899</div>
+        <div class="related-card-rto">Rent-to-own available</div>
+      </div>
+    </a>
+    <a class="related-card" href="#">
+      <div class="related-card-img"><img src="https://mobilitygeorgia.com/cdn/shop/files/RetractabedwithFlexabedInnerspringMattress.jpg?v=1762844856&width=400" alt="Retractabed with Mattress" /></div>
+      <div class="related-card-body">
+        <div class="related-card-brand">Flexabed</div>
+        <div class="related-card-name">Innerspring Mattress 38"×80"×10" — Medium</div>
+        <div class="related-card-price">$850</div>
+        <div class="related-card-rto">Pairs with this bed</div>
+      </div>
+    </a>
+    <a class="related-card" href="#">
+      <div class="related-card-img"><img src="https://mobilitygeorgia.com/cdn/shop/files/revo-2.0-3-wheel-true-blue-right-beauty.jpg?format=webp&v=1768882281&width=400" alt="Scooter" /></div>
+      <div class="related-card-body">
+        <div class="related-card-brand">Revo</div>
+        <div class="related-card-name">Revo 3 Wheel Mobility Scooter with 20" Seat</div>
+        <div class="related-card-price">$1,947</div>
+        <div class="related-card-rto">Rent available</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-logo-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="footer-logo-text">Mobility Georgia</div>
+      </div>
+      <p class="footer-desc">Metro Atlanta's trusted leader in mobility solutions. Family-owned, patient-first. Serving a 100-mile radius around Atlanta with the largest rental fleet in Georgia.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="#">Rentals</a>
+      <a href="#">Scooters</a>
+      <a href="#">Power Chairs</a>
+      <a href="#">Medical Beds</a>
+      <a href="#">Lift Chairs</a>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <a href="#">About Us</a>
+      <a href="#">Contact</a>
+      <a href="#">FAQs</a>
+      <a href="#">Refund Policy</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="tel:4703576130">(470) 357-6130</a>
+      <a href="#">Contact Form</a>
+      <a href="#">Book a Demo</a>
+      <a href="#">GWCC Booking</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Mobility Georgia. All Rights Reserved.</span>
+    <span>Website Terms · Privacy Policy</span>
+  </div>
+</footer>
+
+<script>
+  let mode = 'rto';
+  let bedBase = 2768;
+  let mattressPrice = 525;
+  let addonExtra = 0;
+  let serviceExtra = 0;
+  const MONTHS = 6;
+  const PREMIUM = 0.15;
+
+  function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+
+  function recalc() {
+    const total = bedBase + addonExtra + serviceExtra;
+    const premium = Math.round(total * PREMIUM);
+    const rtoTotal = total + premium;
+    const monthly = Math.round(rtoTotal / MONTHS);
+    const grandRto = rtoTotal + mattressPrice;
+    const grandPurchase = total + mattressPrice;
+
+    document.getElementById('monthly-big').textContent = monthly.toLocaleString();
+    document.getElementById('monthly-inline').textContent = fmt(monthly);
+    document.getElementById('phi-base').textContent = fmt(total);
+    document.getElementById('phi-premium').textContent = fmt(premium);
+    document.getElementById('phi-total').textContent = fmt(rtoTotal);
+    document.getElementById('cs-bed-rto').textContent = fmt(rtoTotal);
+    document.getElementById('cs-grand-rto').textContent = fmt(grandRto);
+    document.getElementById('cs-bed-purchase').textContent = fmt(total);
+    document.getElementById('cs-grand-purchase').textContent = fmt(grandPurchase);
+    document.getElementById('rto-label').textContent = fmt(monthly) + '/mo · own in 6 months';
+    document.getElementById('purchase-label').textContent = fmt(total) + ' today';
+
+    if (mattressPrice > 0) {
+      document.getElementById('cs-mattress-row').style.display = 'flex';
+      document.getElementById('cs-mattress-val').textContent = fmt(mattressPrice);
+      document.getElementById('cs-purchase-mattress-row').style.display = 'flex';
+      document.getElementById('cs-purchase-mattress-val').textContent = fmt(mattressPrice);
+      document.getElementById('mattress-notice').style.display = 'flex';
+    } else {
+      document.getElementById('cs-mattress-row').style.display = 'none';
+      document.getElementById('cs-purchase-mattress-row').style.display = 'none';
+      document.getElementById('mattress-notice').style.display = 'none';
+    }
+  }
+
+  function setMode(m) {
+    mode = m;
+    document.getElementById('btn-purchase').classList.toggle('active', m === 'purchase');
+    document.getElementById('btn-rto').classList.toggle('active', m === 'rto');
+    document.getElementById('rto-panel').style.display = m === 'rto' ? 'block' : 'none';
+    document.getElementById('purchase-panel').style.display = m === 'purchase' ? 'block' : 'none';
+  }
+
+  function selectMattress(id, price) {
+    mattressPrice = price;
+    ['none','gel36','gel42','inner','memgel'].forEach(k => {
+      document.getElementById('m-' + k).classList.toggle('selected', k === id);
+    });
+    recalc();
+  }
+
+  function selectChip(el, labelId, extra) {
+    const parent = el.closest('.variant-chips');
+    parent.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    const labelEl = document.getElementById(labelId);
+    if (labelEl) labelEl.textContent = el.textContent.replace(/\+\$[\d,]+/g, '').trim();
+    if (labelId === 'length-label') {
+      bedBase = extra === 250 ? 3018 : 2768;
+      recalc();
+    }
+    if (labelId === 'rails-label') {
+      addonExtra = extra || 0;
+      recalc();
+    }
+  }
+
+  function handleAddon(sel) {
+    recalc();
+  }
+
+  function handleService(sel) {
+    serviceExtra = parseInt(sel.value) || 0;
+    recalc();
+  }
+
+  function switchImg(el, src) {
+    document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    const img = document.getElementById('main-img');
+    img.style.opacity = '0';
+    setTimeout(() => { img.src = src; img.style.opacity = '1'; }, 150);
+  }
+
+  function switchTab(el, tabId) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+  }
+
+  function checkZip() {
+    const zip = document.getElementById('zip-input').value.trim();
+    const result = document.getElementById('zip-result');
+    if (!zip) return;
+    result.style.display = 'block';
+    result.style.background = '#EAFAF1';
+    result.style.border = '1px solid #A9DFBF';
+    result.style.color = '#1e8449';
+    result.textContent = '✓ Great news — we deliver to ' + zip + '! Delivery & setup: $450. We\'ll call within 24 hours to schedule.';
+  }
+
+  function handleCheckout() {
+    alert('Proceeding to checkout...\n\nSelected: ' + (mode === 'rto' ? 'Rent to Own' : 'Purchase in Full') + '\nMattress: ' + (mattressPrice > 0 ? '$' + mattressPrice : 'None'));
+  }
+
+  function handleDemo() {
+    alert('Redirecting to home demonstration booking...');
+  }
+
+  recalc();
+</script>
+</body>
+</html>
